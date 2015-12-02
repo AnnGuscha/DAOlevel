@@ -7,10 +7,10 @@ import Entity.Professor;
  */
 public interface ProfessorDAO {
 
-    public int insertProfessor(Professor professor);
-    public boolean deleteProfessor(int id);
-    public Professor findProfessor(int id);
-    public boolean updateProfessor(Professor newProfessor);
+    int insertProfessor(Professor professor);
+    boolean deleteProfessor(int id);
+    Professor findProfessor(int id);
+    boolean updateProfessor(Professor newProfessor);
     //public RowSet selectProfessorRS();
     //public Collection selectProfessorsTO();
 }

@@ -7,10 +7,10 @@ import Entity.Course;
  */
 public interface CourseDAO {
 
-    public boolean insertCourse(Course course);
-    public boolean deleteCourse(int id);
-    public Course findCourse(int id);
-    public boolean updateCourse(Course newCourse);
+    boolean insertCourse(Course course);
+    boolean deleteCourse(int id);
+    Course findCourse(int id);
+    boolean updateCourse(Course newCourse);
     //public RowSet selectCourseRS();
     //public Collection selectCoursesTO();
 }

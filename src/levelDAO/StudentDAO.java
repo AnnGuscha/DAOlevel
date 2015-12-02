@@ -7,10 +7,10 @@ import Entity.Student;
  */
 public interface StudentDAO {
 
-    public int insertStudent(Student student);
-    public boolean deleteStudent(int id);
-    public Student findStudent(int id);
-    public boolean updateStudent(Student newStudent);
+    int insertStudent(Student student);
+    boolean deleteStudent(int id);
+    Student findStudent(int id);
+    boolean updateStudent(Student newStudent);
     //public RowSet selectStudentRS();
     //public Collection selectStudentsTO();
 }

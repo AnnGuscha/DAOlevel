@@ -7,10 +7,10 @@ import Entity.Mark;
  */
 public interface MarkDAO {
 
-    public int insertMark(Mark mark);
-    public boolean deleteMark(int id);
-    public Mark findMark(int id);
-    public boolean updateMark(Mark newMark);
+    int insertMark(Mark mark);
+    boolean deleteMark(int id);
+    Mark findMark(int id);
+    boolean updateMark(Mark newMark);
     //public RowSet selectMarkRS();
     //public Collection selectMarksTO();
 }

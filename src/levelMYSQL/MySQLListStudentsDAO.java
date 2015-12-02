@@ -73,7 +73,7 @@ public class MySQLListStudentsDAO implements ListStudentsDAO {
     public boolean updateListStudents(ListStudents newListStudents) {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query= ManagerMySqlQueries.getInstance().getObject("listStudents.update");;//"UPDATE Course SET idCourse="+id;
+            String query= ManagerMySqlQueries.getInstance().getObject("listStudents.update");//"UPDATE Course SET idCourse="+id;
             Statement statement = connection.createStatement();
             int count=statement.executeUpdate(query);
             log.info("Update in database " + count + " listStudents");

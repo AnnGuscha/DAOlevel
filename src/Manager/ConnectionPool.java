@@ -60,7 +60,7 @@ public class ConnectionPool {
         if (availableConns.size() == 0) {
             newConn = getConnection();
         } else {
-            newConn = (Connection) availableConns.lastElement();
+            newConn = availableConns.lastElement();
             availableConns.removeElement(newConn);
         }
         usedConns.addElement(newConn);

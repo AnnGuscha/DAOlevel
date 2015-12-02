@@ -74,7 +74,7 @@ public class MySQLCourseDAO implements CourseDAO {
     public boolean updateCourse(Course newCourse) {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query= ManagerMySqlQueries.getInstance().getObject("curses.update");;//"UPDATE Course SET idCourse="+id;
+            String query= ManagerMySqlQueries.getInstance().getObject("curses.update");//"UPDATE Course SET idCourse="+id;
             Statement statement = connection.createStatement();
             int count=statement.executeUpdate(query);
             log.info("Update in database " + count + " courses");

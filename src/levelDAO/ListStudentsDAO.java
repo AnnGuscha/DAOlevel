@@ -7,10 +7,10 @@ import Entity.ListStudents;
  */
 public interface ListStudentsDAO {
 
-    public int insertListStudents(ListStudents listStudents);
-    public boolean deleteListStudents(int id);
-    public ListStudents findListStudents(int id);
-    public boolean updateListStudents(ListStudents newListStudent);
+    int insertListStudents(ListStudents listStudents);
+    boolean deleteListStudents(int id);
+    ListStudents findListStudents(int id);
+    boolean updateListStudents(ListStudents newListStudent);
     //public RowSet selectListStudentsRS();
     //public Collection selectListsStudentsTO();
 }
