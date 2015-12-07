@@ -1,9 +1,10 @@
 package Entity;
-import java.io.File;
-import java.sql.*;
 
-import levelDAO.*;
-import org.apache.log4j.*;
+import levelDAO.DAOFactory;
+import levelDAO.ProfessorDAO;
+import levelDAO.StudentDAO;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  * Created by Anna on 12/1/2015.
@@ -23,13 +24,13 @@ public class Elective implements java.io.Serializable {
 
         StudentDAO stDAO =
                 MySQLFactory.getStudentDAO();
-        Student newStudent = new Student(8,"Anna","Guscha","Victorovna");
-        stDAO.insertStudent(newStudent);
+        Student newStudent = new Student(15,"Anna","Guscha","Victorovna");
+        stDAO.insert(newStudent);
 
         ProfessorDAO profDAO =
                 MySQLFactory.getProfessorDAO();
 
-        Professor cust = profDAO.findProfessor(1);
+        Professor cust = profDAO.find(1);
 
         System.out.println(cust.toString());
     }

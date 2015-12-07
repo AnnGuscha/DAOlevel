@@ -15,41 +15,23 @@ public class MySQLDAOFactory extends DAOFactory {
     private static final Logger log = Logger.getLogger(MySQLDAOFactory.class);
     public static ConnectionPool pool;
 
-	/*public static Connection createConnection()
-	{
-		Connection connection = null;
-		try {
-            pool=ConnectionPool.getConnectionPool(5);
-            connection = pool.retrieve();
-       } catch (SQLException e) {
-    	   log.error("Error:", e);
-            e.printStackTrace();
-       }
-		return connection;
-	}*/
-
-    public StudentDAO getStudentDAO()
-    {
+    public StudentDAO getStudentDAO() {
         return new MySQLStudentDAO();
     }
 
-    public ProfessorDAO getProfessorDAO()
-    {
+    public ProfessorDAO getProfessorDAO() {
         return new MySQLProfessorDAO();
     }
 
-    public MySQLCourseDAO getCourseDAO()
-    {
+    public MySQLCourseDAO getCourseDAO() {
         return new MySQLCourseDAO();
     }
 
-    public MarkDAO getMarkDAO()
-    {
+    public MarkDAO getMarkDAO() {
         return new MySQLMarkDAO();
     }
 
-    public MySQLListStudentsDAO getListStudentsDAO()
-    {
+    public MySQLListStudentsDAO getListStudentsDAO() {
         return new MySQLListStudentsDAO();
     }
 }

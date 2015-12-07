@@ -5,12 +5,6 @@ import Entity.Student;
 /**
  * Created by Anna on 12/1/2015.
  */
-public interface StudentDAO {
+public interface StudentDAO extends BaseDAO<Student> {
 
-    int insertStudent(Student student);
-    boolean deleteStudent(int id);
-    Student findStudent(int id);
-    boolean updateStudent(Student newStudent);
-    //public RowSet selectStudentRS();
-    //public Collection selectStudentsTO();
 }

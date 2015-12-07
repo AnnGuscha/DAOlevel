@@ -2,28 +2,31 @@ package Manager;
 
 import org.apache.log4j.Logger;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+import java.util.Vector;
 
 /**
  * Created by Anna on 12/1/2015.
  */
 public class ConnectionPool {
     private static final Logger log = Logger.getLogger(ConnectionPool.class);
+    public static ConnectionPool connectionPool;
+    public Properties prop;
     private Vector<Connection> availableConns = new Vector<Connection>();
     private Vector<Connection> usedConns = new Vector<Connection>();
     private String url;
     private String user;
     private String password;
-    public Properties prop;
-    public static ConnectionPool connectionPool;
 
     private ConnectionPool (int initConnCnt)
     {
         try {
             this.url = ConfigManager.getInstance().getObject("DataURL");
-            this.user= ConfigManager.getInstance().getObject("Prop.user");
-            this.password= ConfigManager.getInstance().getObject("Prop.password");
+            this.user= ConfigManager.getInstance().getObject("User");
+            this.password= ConfigManager.getInstance().getObject("Password");
 
             Class.forName(ConfigManager.getInstance().getObject("Driver"));
 

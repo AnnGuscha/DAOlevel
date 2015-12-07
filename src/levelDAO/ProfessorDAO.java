@@ -5,12 +5,6 @@ import Entity.Professor;
 /**
  * Created by Anna on 12/1/2015.
  */
-public interface ProfessorDAO {
+public interface ProfessorDAO extends BaseDAO<Professor> {
 
-    int insertProfessor(Professor professor);
-    boolean deleteProfessor(int id);
-    Professor findProfessor(int id);
-    boolean updateProfessor(Professor newProfessor);
-    //public RowSet selectProfessorRS();
-    //public Collection selectProfessorsTO();
 }

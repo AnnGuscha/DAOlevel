@@ -3,43 +3,33 @@ package Entity;
 /**
  * Created by Anna on 12/1/2015.
  */
-public class Student implements java.io.Serializable {
+public class Student extends IdEntity implements java.io.Serializable {
 
     int id;
     String name;
     String surName;
     String patronymicName;
 
-    public Student (int id, String name, String surName, String patronymicName)
-    {
-        this.id=id;
-        this.name=name;
-        this.surName=surName;
-        this.patronymicName=patronymicName;
+    public Student(int id, String name, String surName, String patronymicName) {
+        super(id);
+        this.name = name;
+        this.surName = surName;
+        this.patronymicName = patronymicName;
     }
 
-    public int getId()
-    {
-        return id;
-    }
-
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getSurName()
-    {
+    public String getSurName() {
         return surName;
     }
 
-    public String getPatronymicName()
-    {
+    public String getPatronymicName() {
         return patronymicName;
     }
 
-    public String toString()
-    {
-        return getId()+" "+getName()+" "+getSurName()+" "+ getPatronymicName();
+    public String toString() {
+        return super.getId() + " " + getName() + " " + getSurName() + " " + getPatronymicName();
     }
 }

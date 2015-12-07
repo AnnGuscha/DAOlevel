@@ -3,37 +3,28 @@ package Entity;
 /**
  * Created by Anna on 12/1/2015.
  */
-public class Mark implements java.io.Serializable {
-    int id;
+public class Mark extends IdEntity implements java.io.Serializable {
+
     int idCourse;
     int idStudent;
     String comment;
 
-    public Mark(int id, int idCourse, int idStudent, String comment)
-    {
-        this.id=id;
-        this.idCourse=idCourse;
-        this.idStudent=idStudent;
-        this.comment=comment;
+    public Mark(int id, int idCourse, int idStudent, String comment) {
+        super(id);
+        this.idCourse = idCourse;
+        this.idStudent = idStudent;
+        this.comment = comment;
     }
 
-    public int getId()
-    {
-        return id;
-    }
-
-    public int getIdCourse()
-    {
+    public int getIdCourse() {
         return idCourse;
     }
 
-    public int getIdStudent()
-    {
+    public int getIdStudent() {
         return idStudent;
     }
 
-    public String getComment()
-    {
+    public String getComment() {
         return comment;
     }
 }
