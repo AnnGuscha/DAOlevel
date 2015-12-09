@@ -1,8 +1,6 @@
 package levelDAO;
 
-import levelMYSQL.MySQLCourseDAO;
 import levelMYSQL.MySQLDAOFactory;
-import levelMYSQL.MySQLListStudentsDAO;
 
 /**
  * Created by Anna on 12/1/2015.
@@ -19,7 +17,7 @@ public abstract class DAOFactory {
         switch (whichFactory)
         {
             case MYSQL:
-                return new MySQLDAOFactory();
+                return MySQLDAOFactory.getMySqlFactory();
             case CLOUDSCAPE:
                 //return new CloudscapeDAOFactory();
             case ORACLE:
@@ -35,9 +33,9 @@ public abstract class DAOFactory {
 
     public abstract ProfessorDAO getProfessorDAO();
 
-    public abstract MySQLCourseDAO getCourseDAO();
+    public abstract CourseDAO getCourseDAO();
 
     public abstract MarkDAO getMarkDAO();
 
-    public abstract MySQLListStudentsDAO getListStudentsDAO();
+    public abstract ListStudentsDAO getListStudentsDAO();
 }

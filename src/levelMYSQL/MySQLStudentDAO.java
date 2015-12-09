@@ -1,12 +1,17 @@
 package levelMYSQL;
 
 import Entity.Student;
+import Manager.ConnectionPool;
+import Manager.ManagerMySqlQueries;
 import levelDAO.StudentDAO;
 import org.apache.log4j.Logger;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Anna on 12/1/2015.
@@ -35,5 +40,25 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
     @Override
     Student getT(ResultSet rs) throws SQLException {
         return new Student(rs.getInt("idStudent"), rs.getString("Name"), rs.getString("SurName"), rs.getString("Patronymic"));
+    }
+
+    @Override
+    public List<Student> find(String name) {
+        List<Student> entites = new ArrayList<Student>();
+        try {
+            Connection connection = ConnectionPool.getConnectionPool().retrieve();
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".findByName");
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                entites.add(getT(rs));
+            }
+            log.info("Find record in database.");
+        } catch (SQLException e) {
+            log.error("Error: ", e);
+            e.printStackTrace();
+        }
+        return entites;
     }
 }

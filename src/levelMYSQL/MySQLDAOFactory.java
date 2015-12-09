@@ -15,6 +15,17 @@ public class MySQLDAOFactory extends DAOFactory {
     private static final Logger log = Logger.getLogger(MySQLDAOFactory.class);
     public static ConnectionPool pool;
 
+    private static MySQLDAOFactory mySQLDAOFactory;
+
+    private MySQLDAOFactory() {
+    }
+
+    public static MySQLDAOFactory getMySqlFactory() {
+        if (mySQLDAOFactory == null)
+            mySQLDAOFactory = new MySQLDAOFactory();
+        return mySQLDAOFactory;
+    }
+
     public StudentDAO getStudentDAO() {
         return new MySQLStudentDAO();
     }
