@@ -5,7 +5,6 @@ package Entity;
  */
 public class Student extends IdEntity implements java.io.Serializable {
 
-    int id;
     String name;
     String surName;
     String patronymicName;
