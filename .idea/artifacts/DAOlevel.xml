@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DAOlevel">
+    <output-path>$PROJECT_DIR$/out/artifacts/DAOlevel</output-path>
+    <root id="archive" name="DAOlevel.jar">
+      <element id="module-output" name="DAOlevel" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
