@@ -21,11 +21,19 @@ public class MySQLMarkDAO extends BaseDAOImpl<Mark> implements MarkDAO {
     }
 
     @Override
-    PreparedStatement fillStatementParams(Mark entity, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, entity.getId());
-        statement.setInt(2, entity.getIdCourse());
-        statement.setInt(3, entity.getIdStudent());
-        statement.setString(4, entity.getComment());
+    PreparedStatement fillStatementParamsForSelect(Mark entity, PreparedStatement statement) throws SQLException {
+        statement.setInt(1, entity.getIdCourse());
+        statement.setInt(2, entity.getIdStudent());
+        statement.setString(3, entity.getComment());
+        return statement;
+    }
+
+    @Override
+    PreparedStatement fillStatementParamsForUpdate(Mark entity, PreparedStatement statement) throws SQLException {
+        statement.setInt(1, entity.getIdCourse());
+        statement.setInt(2, entity.getIdStudent());
+        statement.setString(3, entity.getComment());
+        statement.setInt(4, entity.getId());
         return statement;
     }
 

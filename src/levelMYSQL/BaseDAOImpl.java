@@ -10,7 +10,10 @@ import Manager.ManagerMySqlQueries;
 import levelDAO.BaseDAO;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +24,9 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
     public BaseDAOImpl() {
     }
 
-    abstract PreparedStatement fillStatementParams(T entity, PreparedStatement statement) throws SQLException;
+    abstract PreparedStatement fillStatementParamsForSelect(T entity, PreparedStatement statement) throws SQLException;
+
+    abstract PreparedStatement fillStatementParamsForUpdate(T entity, PreparedStatement statement) throws SQLException;
 
     abstract String getTypeParam();
 
@@ -31,9 +36,9 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
     public int insert(T entity) {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".insert");//"INSERT INTO Course VALUES(?,?,?)";
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".insert");
             PreparedStatement statement = connection.prepareStatement(query);
-            statement = fillStatementParams(entity, statement);
+            statement = fillStatementParamsForSelect(entity, statement);
             try {
                 statement.execute();
                 log.info("Insert record in database.");
@@ -88,9 +93,10 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
     public boolean update(T entity) {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".update");//"UPDATE Course SET idCourse="+id;
-            Statement statement = connection.createStatement();
-            int count = statement.executeUpdate(query);
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".update");
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement = fillStatementParamsForUpdate(entity, statement);
+            int count = statement.executeUpdate();
             log.info("Update in database " + count + " records.");
         } catch (SQLException e) {
             log.error("Error: ", e);

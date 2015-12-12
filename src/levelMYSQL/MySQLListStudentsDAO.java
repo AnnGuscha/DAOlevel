@@ -20,10 +20,17 @@ public class MySQLListStudentsDAO extends BaseDAOImpl<ListStudents> implements L
     }
 
     @Override
-    PreparedStatement fillStatementParams(ListStudents entity, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, entity.getId());
-        statement.setInt(2, entity.getIdCourse());
-        statement.setInt(3, entity.getIdStudent());
+    PreparedStatement fillStatementParamsForSelect(ListStudents entity, PreparedStatement statement) throws SQLException {
+        statement.setInt(1, entity.getIdCourse());
+        statement.setInt(2, entity.getIdStudent());
+        return statement;
+    }
+
+    @Override
+    PreparedStatement fillStatementParamsForUpdate(ListStudents entity, PreparedStatement statement) throws SQLException {
+        statement.setInt(1, entity.getIdCourse());
+        statement.setInt(2, entity.getIdStudent());
+        statement.setInt(3, entity.getId());
         return statement;
     }
 
