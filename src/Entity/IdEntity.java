@@ -7,6 +7,9 @@ public class IdEntity implements java.io.Serializable {
 
     int id;
 
+    public IdEntity() {
+    }
+
     public IdEntity(int id)
     {
         this.id = id;

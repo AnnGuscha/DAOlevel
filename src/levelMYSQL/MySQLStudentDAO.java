@@ -25,10 +25,9 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
 
     @Override
     PreparedStatement fillStatementParams(Student entity, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, entity.getId());
-        statement.setString(2, entity.getName());
-        statement.setString(3, entity.getSurName());
-        statement.setString(4, entity.getPatronymicName());
+        statement.setString(1, entity.getName());
+        statement.setString(2, entity.getSurName());
+        statement.setString(3, entity.getPatronymicName());
         return statement;
     }
 

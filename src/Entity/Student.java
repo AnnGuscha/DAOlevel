@@ -9,6 +9,17 @@ public class Student extends IdEntity implements java.io.Serializable {
     String surName;
     String patronymicName;
 
+    public Student() {
+        super();
+
+    }
+
+    public Student(String name, String surName, String patronymicName) {
+        this.name = name;
+        this.surName = surName;
+        this.patronymicName = patronymicName;
+    }
+
     public Student(int id, String name, String surName, String patronymicName) {
         super(id);
         this.name = name;
@@ -20,12 +31,24 @@ public class Student extends IdEntity implements java.io.Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getSurName() {
         return surName;
     }
 
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
     public String getPatronymicName() {
         return patronymicName;
+    }
+
+    public void setPatronymicName(String patronymicName) {
+        this.patronymicName = patronymicName;
     }
 
     public String toString() {
