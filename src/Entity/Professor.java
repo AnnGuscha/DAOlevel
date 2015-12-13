@@ -5,9 +5,18 @@ package Entity;
  */
 public class Professor extends IdEntity implements java.io.Serializable {
 
-    String firstName;
-    String surName;
-    String patronymicName;
+    private String firstName;
+    private String surName;
+    private String patronymicName;
+
+    public Professor() {
+    }
+
+    public Professor(String firstName, String surName, String patronymicName) {
+        this.firstName = firstName;
+        this.surName = surName;
+        this.patronymicName = patronymicName;
+    }
 
     public Professor(int id, String firstName, String surName, String patronymicName) {
         super(id);
@@ -20,12 +29,24 @@ public class Professor extends IdEntity implements java.io.Serializable {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getSurName() {
         return surName;
     }
 
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
+
     public String getPatronymicName() {
         return patronymicName;
+    }
+
+    public void setPatronymicName(String patronymicName) {
+        this.patronymicName = patronymicName;
     }
 
     public String toString() {

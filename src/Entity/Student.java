@@ -5,13 +5,12 @@ package Entity;
  */
 public class Student extends IdEntity implements java.io.Serializable {
 
-    String name;
-    String surName;
-    String patronymicName;
+    private String name;
+    private String surName;
+    private String patronymicName;
 
     public Student() {
         super();
-
     }
 
     public Student(String name, String surName, String patronymicName) {

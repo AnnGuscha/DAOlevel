@@ -5,7 +5,7 @@ package Entity;
  */
 public class IdEntity implements java.io.Serializable {
 
-    int id;
+    private int id;
 
     public IdEntity() {
     }

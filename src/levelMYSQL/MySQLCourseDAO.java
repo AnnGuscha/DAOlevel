@@ -41,6 +41,6 @@ public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
 
     @Override
     Course getT(ResultSet rs) throws SQLException {
-        return new Course(rs.getInt("idCourse"), rs.getInt("idProfessor"), rs.getString("Description"));
+        return new Course(rs.getInt("idCourse"), rs.getString("Name"), rs.getInt("idProfessor"), rs.getString("Description"));
     }
 }

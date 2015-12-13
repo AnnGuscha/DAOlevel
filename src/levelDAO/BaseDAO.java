@@ -14,6 +14,4 @@ public interface BaseDAO<T extends IdEntity> {
     T find(int id);
     boolean update(T entity);
     List<T> getAll();
-    //public RowSet selectProfessorRS();
-    //public Collection selectProfessorsTO();
 }
