@@ -20,17 +20,19 @@ public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
     }
 
     @Override
-    PreparedStatement fillStatementParamsForSelect(Course entity, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, entity.getProfessorId());
-        statement.setString(2, entity.getDescription());
+    PreparedStatement fillStatementParamsForInsert(Course entity, PreparedStatement statement) throws SQLException {
+        statement.setString(1, entity.getName());
+        statement.setInt(2, entity.getIdProfessor());
+        statement.setString(3, entity.getDescription());
         return statement;
     }
 
     @Override
     PreparedStatement fillStatementParamsForUpdate(Course entity, PreparedStatement statement) throws SQLException {
-        statement.setInt(1, entity.getProfessorId());
-        statement.setString(2, entity.getDescription());
-        statement.setInt(3, entity.getId());
+        statement.setString(1, entity.getName());
+        statement.setInt(2, entity.getIdProfessor());
+        statement.setString(3, entity.getDescription());
+        statement.setInt(4, entity.getId());
         return statement;
     }
 

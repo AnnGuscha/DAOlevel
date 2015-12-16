@@ -6,31 +6,31 @@ package Entity;
 public class Course extends IdEntity implements java.io.Serializable {
 
     private String name;
-    private int professorId;
+    private int idProfessor;
     private String description;
 
     public Course() {
     }
 
-    public Course(String name, int professorId, String description) {
+    public Course(String name, int idProfessor, String description) {
         this.name = name;
-        this.professorId = professorId;
+        this.idProfessor = idProfessor;
         this.description = description;
     }
 
-    public Course(int id, String name, int professorId, String description) {
+    public Course(int id, String name, int idProfessor, String description) {
         super(id);
         this.name = name;
-        this.professorId = professorId;
+        this.idProfessor = idProfessor;
         this.description = description;
     }
 
-    public int getProfessorId() {
-        return professorId;
+    public int getIdProfessor() {
+        return idProfessor;
     }
 
-    public void setProfessorId(int professorId) {
-        this.professorId = professorId;
+    public void setIdProfessor(int idProfessor) {
+        this.idProfessor = idProfessor;
     }
 
     public String getDescription() {

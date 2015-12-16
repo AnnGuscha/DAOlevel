@@ -20,7 +20,7 @@ public class MySQLListStudentsDAO extends BaseDAOImpl<ListStudents> implements L
     }
 
     @Override
-    PreparedStatement fillStatementParamsForSelect(ListStudents entity, PreparedStatement statement) throws SQLException {
+    PreparedStatement fillStatementParamsForInsert(ListStudents entity, PreparedStatement statement) throws SQLException {
         statement.setInt(1, entity.getIdCourse());
         statement.setInt(2, entity.getIdStudent());
         return statement;
@@ -41,7 +41,7 @@ public class MySQLListStudentsDAO extends BaseDAOImpl<ListStudents> implements L
 
     @Override
     ListStudents getT(ResultSet rs) throws SQLException {
-        return new ListStudents(rs.getInt("idlistStudent"), rs.getInt("idCourse"), rs.getInt("idStudent"));
+        return new ListStudents(rs.getInt("idListStudents"), rs.getInt("idCourse"), rs.getInt("idStudent"));
     }
 }
 

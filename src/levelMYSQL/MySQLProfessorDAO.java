@@ -20,7 +20,7 @@ public class MySQLProfessorDAO extends BaseDAOImpl<Professor> implements Profess
     }
 
     @Override
-    PreparedStatement fillStatementParamsForSelect(Professor entity, PreparedStatement statement) throws SQLException {
+    PreparedStatement fillStatementParamsForInsert(Professor entity, PreparedStatement statement) throws SQLException {
         statement.setString(1, entity.getFirstName());
         statement.setString(2, entity.getSurName());
         statement.setString(3, entity.getPatronymicName());

@@ -24,7 +24,7 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
     public BaseDAOImpl() {
     }
 
-    abstract PreparedStatement fillStatementParamsForSelect(T entity, PreparedStatement statement) throws SQLException;
+    abstract PreparedStatement fillStatementParamsForInsert(T entity, PreparedStatement statement) throws SQLException;
 
     abstract PreparedStatement fillStatementParamsForUpdate(T entity, PreparedStatement statement) throws SQLException;
 
@@ -38,7 +38,7 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".insert");
             PreparedStatement statement = connection.prepareStatement(query);
-            statement = fillStatementParamsForSelect(entity, statement);
+            statement = fillStatementParamsForInsert(entity, statement);
             try {
                 statement.execute();
                 log.info("Insert record in database.");
@@ -75,7 +75,7 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
         T entity = null;
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".find");//"SELECT * FROM Course WHERE idCourse = "+id;
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".find");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
