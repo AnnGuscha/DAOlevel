@@ -107,10 +107,15 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
 
     @Override
     public List<T> getAll() {
+        String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".select");
+        List<T> entites = getList(query);
+        return entites;
+    }
+
+    protected List<T> getList(String query) {
         List<T> entites = new ArrayList<T>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".select");
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {

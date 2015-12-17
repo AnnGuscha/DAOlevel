@@ -5,12 +5,18 @@ package levelMYSQL;
  */
 
 import Entity.Course;
+import ExtendedEntity.CourseExtend;
+import Manager.ConnectionPool;
+import Manager.ManagerMySqlQueries;
 import levelDAO.CourseDAO;
 import org.apache.log4j.Logger;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
 
@@ -44,5 +50,23 @@ public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
     @Override
     Course getT(ResultSet rs) throws SQLException {
         return new Course(rs.getInt("idCourse"), rs.getString("Name"), rs.getInt("idProfessor"), rs.getString("Description"));
+    }
+
+    public List<CourseExtend> getCourseExtentdList() {
+        List<CourseExtend> entites = new ArrayList<>();
+        try {
+            Connection connection = ConnectionPool.getConnectionPool().retrieve();
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".selectJoin");
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                entites.add(new CourseExtend(rs.getInt("idCourse"), rs.getString("Name"), rs.getInt("idProfessor"), rs.getString("Description"), rs.getString("SurName") + " " + rs.getString("Name") + " " + rs.getString("Patronymic")));
+            }
+            log.info("Find " + entites.size() + " records in database.");
+        } catch (SQLException e) {
+            log.error("Error: ", e);
+            e.printStackTrace();
+        }
+        return entites;
     }
 }
