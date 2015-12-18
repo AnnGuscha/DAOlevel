@@ -58,7 +58,7 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
     public boolean delete(int id) {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".delete");//"DELETE FROM Course WHERE idCourse=?";
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".delete");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             int count = statement.getUpdateCount();

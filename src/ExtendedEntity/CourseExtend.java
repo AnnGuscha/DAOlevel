@@ -8,6 +8,8 @@ import Entity.Course;
 public class CourseExtend extends Course {
 
     private String nameProfessor;
+    private String mark;
+    private boolean isSubscription;
 
     public CourseExtend() {
     }
@@ -28,5 +30,21 @@ public class CourseExtend extends Course {
 
     public void setNameProfessor(String nameProfessor) {
         this.nameProfessor = nameProfessor;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public void setMark(String mark) {
+        this.mark = mark;
+    }
+
+    public boolean getIsSubscription() {
+        return isSubscription;
+    }
+
+    public void setIsSubscription(boolean isSubscription) {
+        this.isSubscription = isSubscription;
     }
 }

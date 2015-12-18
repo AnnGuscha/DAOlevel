@@ -1,10 +1,7 @@
 package levelMYSQL;
 
 import Manager.ConnectionPool;
-import levelDAO.DAOFactory;
-import levelDAO.MarkDAO;
-import levelDAO.ProfessorDAO;
-import levelDAO.StudentDAO;
+import levelDAO.*;
 import org.apache.log4j.Logger;
 
 /**
@@ -15,14 +12,12 @@ public class MySQLDAOFactory extends DAOFactory {
     private static final Logger log = Logger.getLogger(MySQLDAOFactory.class);
     public static ConnectionPool pool;
 
-    private static MySQLDAOFactory mySQLDAOFactory;
+    private static MySQLDAOFactory mySQLDAOFactory = new MySQLDAOFactory();
 
     private MySQLDAOFactory() {
     }
 
     public static MySQLDAOFactory getMySqlFactory() {
-        if (mySQLDAOFactory == null)
-            mySQLDAOFactory = new MySQLDAOFactory();
         return mySQLDAOFactory;
     }
 
@@ -34,7 +29,7 @@ public class MySQLDAOFactory extends DAOFactory {
         return new MySQLProfessorDAO();
     }
 
-    public MySQLCourseDAO getCourseDAO() {
+    public CourseDAO getCourseDAO() {
         return new MySQLCourseDAO();
     }
 
@@ -42,8 +37,12 @@ public class MySQLDAOFactory extends DAOFactory {
         return new MySQLMarkDAO();
     }
 
-    public MySQLListStudentsDAO getListStudentsDAO() {
+    public ListStudentsDAO getListStudentsDAO() {
         return new MySQLListStudentsDAO();
+    }
+
+    public ParticularQueriesDAO getParticularQueriesDAO() {
+        return new MySQLParticularQueriesDAO();
     }
 }
 
