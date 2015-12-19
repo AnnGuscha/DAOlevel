@@ -61,8 +61,9 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".delete");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
-            int count = statement.getUpdateCount();
+            int count = statement.executeUpdate();
             log.info("Delete from database " + count + " records.");
+            return true;
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();

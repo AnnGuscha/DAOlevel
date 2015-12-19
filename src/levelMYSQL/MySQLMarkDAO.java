@@ -5,9 +5,11 @@ package levelMYSQL;
  */
 
 import Entity.Mark;
+import Manager.ConnectionPool;
 import levelDAO.MarkDAO;
 import org.apache.log4j.Logger;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -45,5 +47,41 @@ public class MySQLMarkDAO extends BaseDAOImpl<Mark> implements MarkDAO {
     @Override
     Mark getT(ResultSet rs) throws SQLException {
         return new Mark(rs.getInt("idMark"), rs.getInt("idCourse"), rs.getInt("idStudent"), rs.getString("Comment"));
+    }
+
+    public Mark find(int idCourse, int idStudent) {
+        Mark entity = null;
+        try {
+            Connection connection = ConnectionPool.getConnectionPool().retrieve();
+            String query = "select * from mark where mark.idCourse = ? and mark.idStudent = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, idCourse);
+            statement.setInt(2, idStudent);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            entity = getT(rs);
+            log.info("Find record in database.");
+        } catch (SQLException e) {
+            log.error("Error: ", e);
+            e.printStackTrace();
+        }
+        return entity;
+    }
+
+    public boolean delete(Mark mark) {
+        try {
+            Connection connection = ConnectionPool.getConnectionPool().retrieve();
+            String query = "delete from mark where mark.idCourse=? and mark.idStudent=?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, mark.getIdCourse());
+            statement.setInt(2, mark.getIdStudent());
+            int count = statement.executeUpdate();
+            log.info("Delete from database " + count + " records.");
+            return true;
+        } catch (SQLException e) {
+            log.error("Error: ", e);
+            e.printStackTrace();
+        }
+        return false;
     }
 }

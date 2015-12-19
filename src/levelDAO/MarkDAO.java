@@ -7,4 +7,7 @@ import Entity.Mark;
  */
 public interface MarkDAO extends BaseDAO<Mark> {
 
+    Mark find(int idCourse, int idStudent);
+
+    boolean delete(Mark mark);
 }

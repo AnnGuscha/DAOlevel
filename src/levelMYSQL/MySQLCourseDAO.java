@@ -69,4 +69,23 @@ public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
         }
         return entites;
     }
+
+    public Course getCourseByProfessor(int idProfessor) {
+        Course entity = new Course();
+        try {
+            Connection connection = ConnectionPool.getConnectionPool().retrieve();
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".selectJoin");
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet rs = statement.executeQuery(query);
+            rs.next();
+            entity.setId(rs.getInt("idCourse"));
+            entity.setName(rs.getString("Name"));
+            entity.setDescription(rs.getString("Description"));
+            log.info("Find record in database.");
+        } catch (SQLException e) {
+            log.error("Error: ", e);
+            e.printStackTrace();
+        }
+        return entity;
+    }
 }

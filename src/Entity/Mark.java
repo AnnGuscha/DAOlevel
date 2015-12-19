@@ -25,6 +25,11 @@ public class Mark extends IdEntity implements java.io.Serializable {
         this.comment = comment;
     }
 
+    public Mark(int idCourse, int idStudent) {
+        this.idCourse = idCourse;
+        this.idStudent = idStudent;
+    }
+
     public int getIdCourse() {
         return idCourse;
     }
