@@ -40,4 +40,6 @@ public abstract class DAOFactory {
     public abstract ListStudentsDAO getListStudentsDAO();
 
     public abstract ParticularQueriesDAO getParticularQueriesDAO();
+
+    public abstract UserDAO getUserDAO();
 }

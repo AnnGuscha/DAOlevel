@@ -44,5 +44,9 @@ public class MySQLDAOFactory extends DAOFactory {
     public ParticularQueriesDAO getParticularQueriesDAO() {
         return new MySQLParticularQueriesDAO();
     }
+
+    public UserDAO getUserDAO() {
+        return new MySQLUserDAO();
+    }
 }
 

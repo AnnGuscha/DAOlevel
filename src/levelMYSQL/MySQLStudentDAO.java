@@ -58,7 +58,7 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".findByName");
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, name);
-            ResultSet rs = statement.executeQuery(query);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 entites.add(getT(rs));
             }

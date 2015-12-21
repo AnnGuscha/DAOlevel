@@ -80,9 +80,11 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
-            rs.next();
-            entity = getT(rs);
-            log.info("Find record in database.");
+            if (rs.next()) {
+                entity = getT(rs);
+                log.info("Find record in database.");
+            } else
+                log.info("Not find record in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
