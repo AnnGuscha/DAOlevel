@@ -45,7 +45,7 @@ public class MySQLUserDAO extends BaseDAOImpl<User> implements UserDAO {
 
     @Override
     User getT(ResultSet rs) throws SQLException {
-        return new User(rs.getInt("id"), rs.getString("Login"), rs.getString("Password"), rs.getInt("Role"));
+        return new User(rs.getInt("Id"), rs.getString("Login"), rs.getString("Password"), rs.getInt("Role"));
     }
 
 

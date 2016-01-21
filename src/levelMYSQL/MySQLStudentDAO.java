@@ -28,6 +28,7 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
         statement.setString(1, entity.getName());
         statement.setString(2, entity.getSurName());
         statement.setString(3, entity.getPatronymicName());
+        statement.setInt(4, entity.getUserId());
         return statement;
     }
 
@@ -36,7 +37,8 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
         statement.setString(1, entity.getName());
         statement.setString(2, entity.getSurName());
         statement.setString(3, entity.getPatronymicName());
-        statement.setInt(4, entity.getId());
+        statement.setInt(4, entity.getUserId());
+        statement.setInt(5, entity.getId());
         return statement;
     }
 
@@ -47,7 +49,7 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
 
     @Override
     Student getT(ResultSet rs) throws SQLException {
-        return new Student(rs.getInt("idStudent"), rs.getString("Name"), rs.getString("SurName"), rs.getString("Patronymic"));
+        return new Student(rs.getInt("Id"), rs.getString("Name"), rs.getString("SurName"), rs.getString("Patronymic"), rs.getInt("UserId"));
     }
 
     @Override
@@ -68,5 +70,26 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
             e.printStackTrace();
         }
         return entites;
+    }
+
+    @Override
+    public Student findByUserId(int userId) {
+        Student entity = null;
+        try {
+            Connection connection = ConnectionPool.getConnectionPool().retrieve();
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".findByUserId");
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, userId);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                entity = getT(rs);
+                log.info("Find record in database.");
+            } else
+                log.info("Not find record in database.");
+        } catch (SQLException e) {
+            log.error("Error: ", e);
+            e.printStackTrace();
+        }
+        return entity;
     }
 }

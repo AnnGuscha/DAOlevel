@@ -9,4 +9,6 @@ import java.util.List;
  */
 public interface StudentDAO extends BaseDAO<Student> {
     List<Student> find(String name);
+
+    Student findByUserId(int userId);
 }

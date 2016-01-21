@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 public class ConfigManager {
 
     private static ConfigManager ourInstance;
+    private static ResourceBundle rb;
 
     private ConfigManager() {
         rb=ResourceBundle.getBundle("properties.mySqlConf");
@@ -19,7 +20,6 @@ public class ConfigManager {
             ourInstance=new ConfigManager();
         return ourInstance;
     }
-    private static ResourceBundle rb;
 
     public String getObject(String key)
     {

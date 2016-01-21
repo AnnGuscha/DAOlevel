@@ -8,22 +8,33 @@ public class Student extends IdEntity implements java.io.Serializable {
     private String name;
     private String surName;
     private String patronymicName;
+    private int userId;
 
     public Student() {
         super();
     }
 
-    public Student(String name, String surName, String patronymicName) {
+    public Student(String name, String surName, String patronymicName, int userId) {
         this.name = name;
         this.surName = surName;
         this.patronymicName = patronymicName;
+        this.userId = userId;
     }
 
-    public Student(int id, String name, String surName, String patronymicName) {
+    public Student(int id, String name, String surName, String patronymicName, int userId) {
         super(id);
         this.name = name;
         this.surName = surName;
         this.patronymicName = patronymicName;
+        this.userId = userId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -51,6 +62,6 @@ public class Student extends IdEntity implements java.io.Serializable {
     }
 
     public String toString() {
-        return super.getId() + " " + getName() + " " + getSurName() + " " + getPatronymicName();
+        return super.getId() + " " + getName() + " " + getSurName() + " " + getPatronymicName() + " " + getUserId();
     }
 }

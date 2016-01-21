@@ -46,7 +46,7 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 " professor.SurName, professor.Name as ProfessorName, professor.Patronymic, mark.Comment as Mark" +
                 " FROM liststudents" +
                 " JOIN course ON (liststudents.idCourse=course.idCourse)" +
-                " JOIN Professor ON (Course.idProfessor = Professor.idProfessor)" +
+                " JOIN Professor ON (Course.idProfessor = Professor.Id)" +
                 " LEFT OUTER JOIN mark ON (course.idCourse=mark.idCourse and liststudents.idStudent = mark.idStudent)" +
                 " where liststudents.idStudent=?";
     }
@@ -87,7 +87,7 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
         return "SELECT course.idCourse, course.Name, course.idProfessor,course.Description, " +
                 "professor.SurName, professor.Name as ProfessorName, professor.Patronymic, liststudents.idListStudents as isSubs " +
                 "FROM course " +
-                "JOIN professor ON (Course.idProfessor = Professor.idProfessor) " +
+                "JOIN professor ON (Course.idProfessor = Professor.Id) " +
                 "left  OUTER JOIN liststudents ON (course.idCourse=liststudents.idCourse And idStudent=?)";
     }
 
@@ -112,7 +112,7 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
 
     private StudentExtend getStudentExtend(ResultSet rs) throws SQLException {
         StudentExtend studentExtend = new StudentExtend();
-        studentExtend.setId(rs.getInt("idStudent"));
+        studentExtend.setId(rs.getInt("Id"));
         studentExtend.setName(rs.getString("Name"));
         studentExtend.setSurName(rs.getString("SurName"));
         studentExtend.setPatronymicName(rs.getString("Patronymic"));
@@ -122,7 +122,7 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
 
     private String getQueryStudentsByCourse() {
         return "SELECT \n" +
-                "    student.idStudent,\n" +
+                "    student.Id,\n" +
                 "    student.Name,\n" +
                 "    student.SurName,\n" +
                 "    student.Patronymic,\n" +
@@ -130,9 +130,9 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 "FROM\n" +
                 "    liststudents\n" +
                 "        JOIN\n" +
-                "    student ON (liststudents.idStudent = student.idStudent AND liststudents.idCourse=?)\n" +
+                "    student ON (liststudents.idStudent = student.Id AND liststudents.idCourse=?)\n" +
                 "        LEFT OUTER JOIN\n" +
-                "    mark ON (student.idStudent = mark.idStudent\n" +
+                "    mark ON (student.Id = mark.idStudent\n" +
                 "        AND liststudents.idCourse = mark.idCourse)";
     }
 
@@ -157,7 +157,7 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
 
     private String getQueryStudentsByProfessor() {
         return "SELECT \n" +
-                "    student.idStudent,\n" +
+                "    student.Id,\n" +
                 "    student.Name,\n" +
                 "    student.SurName,\n" +
                 "    student.Patronymic,\n" +
@@ -165,10 +165,10 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 "FROM\n" +
                 "    liststudents\n" +
                 "        JOIN\n" +
-                "    student ON (liststudents.idStudent = student.idStudent " +
+                "    student ON (liststudents.idStudent = student.Id " +
                 "        AND liststudents.idCourse=(select course.idCourse from course where course.idProfessor = ? limit 1))\n" +
                 "        LEFT OUTER JOIN\n" +
-                "    mark ON (student.idStudent = mark.idStudent\n" +
+                "    mark ON (student.Id = mark.idStudent\n" +
                 "        AND liststudents.idCourse = mark.idCourse)";
     }
 
@@ -207,8 +207,8 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 "    course ON (mark.idCourse = course.idCourse\n" +
                 "        AND course.idCourse = ?)\n" +
                 "        JOIN\n" +
-                "    student ON (mark.idStudent = student.idStudent\n" +
-                "        AND student.idStudent = ?)";
+                "    student ON (mark.idStudent = student.Id\n" +
+                "        AND student.Id = ?)";
     }
 
     private MarkExtend getMarkExtend(ResultSet rs) throws SQLException {
