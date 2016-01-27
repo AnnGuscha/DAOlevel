@@ -1,13 +1,13 @@
-package levelMYSQL;
+package dao.mysql;
 
 /**
  * Created by Anna on 12/1/2015.
  */
 
-import Entity.Professor;
-import Manager.ConnectionPool;
-import Manager.ManagerMySqlQueries;
-import levelDAO.ProfessorDAO;
+import dao.ProfessorDAO;
+import entity.Professor;
+import manager.ConnectionPool;
+import manager.ManagerMySqlQueries;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

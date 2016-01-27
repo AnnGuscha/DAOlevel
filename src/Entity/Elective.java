@@ -1,6 +1,6 @@
-package Entity;
+package entity;
 
-import levelDAO.DAOFactory;
+import dao.DAOFactory;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 

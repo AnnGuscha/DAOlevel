@@ -1,6 +1,6 @@
-package levelDAO;
+package dao;
 
-import levelMYSQL.MySQLDAOFactory;
+import dao.mysql.MySQLDAOFactory;
 
 /**
  * Created by Anna on 12/1/2015.

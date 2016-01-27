@@ -1,6 +1,6 @@
-package ExtendedEntity;
+package entity.extended;
 
-import Entity.Student;
+import entity.Student;
 
 /**
  * Created by Anna on 12/19/2015.

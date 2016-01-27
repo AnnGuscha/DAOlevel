@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 /**
  * Created by Anna on 12/1/2015.

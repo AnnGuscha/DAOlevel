@@ -1,10 +1,10 @@
-package levelMYSQL;
+package dao.mysql;
 
-import ExtendedEntity.CourseExtend;
-import ExtendedEntity.MarkExtend;
-import ExtendedEntity.StudentExtend;
-import Manager.ConnectionPool;
-import levelDAO.ParticularQueriesDAO;
+import dao.ParticularQueriesDAO;
+import entity.extended.CourseExtend;
+import entity.extended.MarkExtend;
+import entity.extended.StudentExtend;
+import manager.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

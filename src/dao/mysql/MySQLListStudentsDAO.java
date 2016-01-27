@@ -1,12 +1,12 @@
-package levelMYSQL;
+package dao.mysql;
 
 /**
  * Created by Anna on 12/1/2015.
  */
 
-import Entity.ListStudents;
-import Manager.ConnectionPool;
-import levelDAO.ListStudentsDAO;
+import dao.ListStudentsDAO;
+import entity.ListStudents;
+import manager.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

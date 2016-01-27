@@ -1,7 +1,7 @@
-package levelMYSQL;
+package dao.mysql;
 
-import Manager.ConnectionPool;
-import levelDAO.*;
+import dao.*;
+import manager.ConnectionPool;
 import org.apache.log4j.Logger;
 
 /**

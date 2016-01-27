@@ -1,6 +1,6 @@
-package levelDAO;
+package dao;
 
-import Entity.ListStudents;
+import entity.ListStudents;
 
 /**
  * Created by Anna on 12/1/2015.

@@ -1,9 +1,9 @@
-package levelMYSQL;
+package dao.mysql;
 
-import Entity.User;
-import Manager.ConnectionPool;
-import Manager.ManagerMySqlQueries;
-import levelDAO.UserDAO;
+import dao.UserDAO;
+import entity.User;
+import manager.ConnectionPool;
+import manager.ManagerMySqlQueries;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;

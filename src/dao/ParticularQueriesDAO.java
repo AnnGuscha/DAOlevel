@@ -1,8 +1,8 @@
-package levelDAO;
+package dao;
 
-import ExtendedEntity.CourseExtend;
-import ExtendedEntity.MarkExtend;
-import ExtendedEntity.StudentExtend;
+import entity.extended.CourseExtend;
+import entity.extended.MarkExtend;
+import entity.extended.StudentExtend;
 
 import java.util.List;
 

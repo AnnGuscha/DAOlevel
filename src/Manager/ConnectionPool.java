@@ -1,4 +1,4 @@
-package Manager;
+package manager;
 
 import org.apache.log4j.Logger;
 
@@ -13,8 +13,8 @@ import java.util.Vector;
  */
 public class ConnectionPool {
     private static final Logger log = Logger.getLogger(ConnectionPool.class);
-    public static ConnectionPool connectionPool;
-    public Properties prop;
+    private static ConnectionPool connectionPool;
+    private Properties prop;
     private Vector<Connection> availableConns = new Vector<Connection>();
     private Vector<Connection> usedConns = new Vector<Connection>();
     private String url;

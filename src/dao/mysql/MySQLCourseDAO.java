@@ -1,14 +1,14 @@
-package levelMYSQL;
+package dao.mysql;
 
 /**
  * Created by Anna on 12/1/2015.
  */
 
-import Entity.Course;
-import ExtendedEntity.CourseExtend;
-import Manager.ConnectionPool;
-import Manager.ManagerMySqlQueries;
-import levelDAO.CourseDAO;
+import dao.CourseDAO;
+import entity.Course;
+import entity.extended.CourseExtend;
+import manager.ConnectionPool;
+import manager.ManagerMySqlQueries;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -74,9 +74,10 @@ public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
         Course entity = new Course();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
-            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".selectJoin");
+            String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".findByProfessor");
             PreparedStatement statement = connection.prepareStatement(query);
-            ResultSet rs = statement.executeQuery(query);
+            statement.setInt(1, idProfessor);
+            ResultSet rs = statement.executeQuery();
             rs.next();
             entity.setId(rs.getInt("idCourse"));
             entity.setName(rs.getString("Name"));

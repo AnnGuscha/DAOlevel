@@ -1,6 +1,6 @@
-package levelDAO;
+package dao;
 
-import Entity.Mark;
+import entity.Mark;
 
 /**
  * Created by Anna on 12/1/2015.

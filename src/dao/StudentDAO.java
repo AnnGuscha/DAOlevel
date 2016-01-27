@@ -1,6 +1,6 @@
-package levelDAO;
+package dao;
 
-import Entity.Student;
+import entity.Student;
 
 import java.util.List;
 

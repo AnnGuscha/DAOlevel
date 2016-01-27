@@ -1,4 +1,4 @@
-package Manager;
+package manager;
 
 import java.util.ResourceBundle;
 
@@ -9,14 +9,14 @@ public class ManagerMySqlQueries {
     private static ManagerMySqlQueries ourInstance = new ManagerMySqlQueries();
     private static ResourceBundle rb;
 
+    private ManagerMySqlQueries() {
+        rb = ResourceBundle.getBundle("properties.mySqlConf");
+    }
+
     public static ManagerMySqlQueries getInstance() {
         if(ourInstance==null)
             ourInstance=new ManagerMySqlQueries();
         return ourInstance;
-    }
-
-    private ManagerMySqlQueries() {
-        rb=ResourceBundle.getBundle("properties.mySqlConf");
     }
 
     public String getObject(String key)

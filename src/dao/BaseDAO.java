@@ -1,6 +1,6 @@
-package levelDAO;
+package dao;
 
-import Entity.IdEntity;
+import entity.IdEntity;
 
 import java.util.List;
 

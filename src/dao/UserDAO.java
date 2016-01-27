@@ -1,6 +1,6 @@
-package levelDAO;
+package dao;
 
-import Entity.User;
+import entity.User;
 
 /**
  * Created by Anna on 12/21/2015.
