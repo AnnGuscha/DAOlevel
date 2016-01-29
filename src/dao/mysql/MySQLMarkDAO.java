@@ -4,6 +4,7 @@ package dao.mysql;
  * Created by Anna on 12/1/2015.
  */
 
+import dao.DAOException;
 import dao.MarkDAO;
 import entity.Mark;
 import manager.ConnectionPool;
@@ -49,7 +50,7 @@ public class MySQLMarkDAO extends BaseDAOImpl<Mark> implements MarkDAO {
         return new Mark(rs.getInt("idMark"), rs.getInt("idCourse"), rs.getInt("idStudent"), rs.getString("Comment"));
     }
 
-    public Mark find(int idCourse, int idStudent) {
+    public Mark find(int idCourse, int idStudent) throws DAOException {
         Mark entity = null;
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -64,11 +65,12 @@ public class MySQLMarkDAO extends BaseDAOImpl<Mark> implements MarkDAO {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }
 
-    public boolean delete(Mark mark) {
+    public boolean delete(Mark mark) throws DAOException {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = "delete from mark where mark.idCourse=? and mark.idStudent=?";
@@ -81,7 +83,9 @@ public class MySQLMarkDAO extends BaseDAOImpl<Mark> implements MarkDAO {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
+        } finally {
+            return false;
         }
-        return false;
     }
 }

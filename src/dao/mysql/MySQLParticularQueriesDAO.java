@@ -1,5 +1,6 @@
 package dao.mysql;
 
+import dao.DAOException;
 import dao.ParticularQueriesDAO;
 import entity.extended.CourseExtend;
 import entity.extended.MarkExtend;
@@ -21,8 +22,8 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
 
     private static final Logger log = Logger.getLogger(MySQLParticularQueriesDAO.class);
 
-    public List<CourseExtend> getCoursesForStudent(int idStudent) {
-        List<CourseExtend> entites = new ArrayList<CourseExtend>();
+    public List<CourseExtend> getCoursesForStudent(int idStudent) throws DAOException {
+        List<CourseExtend> entities = new ArrayList<CourseExtend>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             PreparedStatement statement = connection.prepareStatement(getQueryCoursesForStudent());
@@ -31,14 +32,15 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
             while (rs.next()) {
                 CourseExtend courseExtend = getCourseExtend(rs);
                 courseExtend.setMark(rs.getString("Mark"));
-                entites.add(courseExtend);
+                entities.add(courseExtend);
             }
-            log.info("Find " + entites.size() + " records in database.");
+            log.info("Find " + entities.size() + " records in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
-        return entites;
+        return entities;
     }
 
     private String getQueryCoursesForStudent() {
@@ -62,8 +64,8 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
         return courseExtend;
     }
 
-    public List<CourseExtend> getCourses(int idStudent) {
-        List<CourseExtend> entites = new ArrayList<CourseExtend>();
+    public List<CourseExtend> getCourses(int idStudent) throws DAOException {
+        List<CourseExtend> entities = new ArrayList<CourseExtend>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             PreparedStatement statement = connection.prepareStatement(getQueryCourses());
@@ -73,14 +75,15 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 CourseExtend courseExtend = getCourseExtend(rs);
                 boolean isSubs = rs.getString("isSubs") != null ? true : false;
                 courseExtend.setIsSubscription(isSubs);
-                entites.add(courseExtend);
+                entities.add(courseExtend);
             }
-            log.info("Find " + entites.size() + " records in database.");
+            log.info("Find " + entities.size() + " records in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
-        return entites;
+        return entities;
     }
 
     private String getQueryCourses() {
@@ -91,8 +94,8 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 "left  OUTER JOIN liststudents ON (course.idCourse=liststudents.idCourse And idStudent=?)";
     }
 
-    public List<StudentExtend> getStudentsByCourse(int idCourse) {
-        List<StudentExtend> entites = new ArrayList<StudentExtend>();
+    public List<StudentExtend> getStudentsByCourse(int idCourse) throws DAOException {
+        List<StudentExtend> entities = new ArrayList<StudentExtend>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             PreparedStatement statement = connection.prepareStatement(getQueryStudentsByCourse());
@@ -100,14 +103,15 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 StudentExtend studentExtend = getStudentExtend(rs);
-                entites.add(studentExtend);
+                entities.add(studentExtend);
             }
-            log.info("Find " + entites.size() + " records in database.");
+            log.info("Find " + entities.size() + " records in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
-        return entites;
+        return entities;
     }
 
     private StudentExtend getStudentExtend(ResultSet rs) throws SQLException {
@@ -136,8 +140,8 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 "        AND liststudents.idCourse = mark.idCourse)";
     }
 
-    public List<StudentExtend> getStudentsByProfessor(int idProfessor) {
-        List<StudentExtend> entites = new ArrayList<StudentExtend>();
+    public List<StudentExtend> getStudentsByProfessor(int idProfessor) throws DAOException {
+        List<StudentExtend> entities = new ArrayList<StudentExtend>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             PreparedStatement statement = connection.prepareStatement(getQueryStudentsByProfessor());
@@ -145,14 +149,15 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 StudentExtend studentExtend = getStudentExtend(rs);
-                entites.add(studentExtend);
+                entities.add(studentExtend);
             }
-            log.info("Find " + entites.size() + " records in database.");
+            log.info("Find " + entities.size() + " records in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
-        return entites;
+        return entities;
     }
 
     private String getQueryStudentsByProfessor() {
@@ -172,7 +177,7 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
                 "        AND liststudents.idCourse = mark.idCourse)";
     }
 
-    public MarkExtend find(int idCourse, int idStudent) {
+    public MarkExtend find(int idCourse, int idStudent) throws DAOException {
         MarkExtend entity = new MarkExtend();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -187,6 +192,7 @@ public class MySQLParticularQueriesDAO implements ParticularQueriesDAO {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }

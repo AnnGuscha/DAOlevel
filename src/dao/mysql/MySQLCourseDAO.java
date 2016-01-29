@@ -5,6 +5,7 @@ package dao.mysql;
  */
 
 import dao.CourseDAO;
+import dao.DAOException;
 import entity.Course;
 import entity.extended.CourseExtend;
 import manager.ConnectionPool;
@@ -52,25 +53,26 @@ public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
         return new Course(rs.getInt("idCourse"), rs.getString("Name"), rs.getInt("idProfessor"), rs.getString("Description"));
     }
 
-    public List<CourseExtend> getCourseExtentdList() {
-        List<CourseExtend> entites = new ArrayList<>();
+    public List<CourseExtend> getCourseExtentdList() throws DAOException {
+        List<CourseExtend> entities = new ArrayList<>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".selectJoin");
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                entites.add(new CourseExtend(rs.getInt("idCourse"), rs.getString("Name"), rs.getInt("idProfessor"), rs.getString("Description"), rs.getString("SurName") + " " + rs.getString("Name") + " " + rs.getString("Patronymic")));
+                entities.add(new CourseExtend(rs.getInt("idCourse"), rs.getString("Name"), rs.getInt("idProfessor"), rs.getString("Description"), rs.getString("SurName") + " " + rs.getString("Name") + " " + rs.getString("Patronymic")));
             }
-            log.info("Find " + entites.size() + " records in database.");
+            log.info("Find " + entities.size() + " records in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
-        return entites;
+        return entities;
     }
 
-    public Course getCourseByProfessor(int idProfessor) {
+    public Course getCourseByProfessor(int idProfessor) throws DAOException {
         Course entity = new Course();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -86,6 +88,7 @@ public class MySQLCourseDAO extends BaseDAOImpl<Course> implements CourseDAO {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }

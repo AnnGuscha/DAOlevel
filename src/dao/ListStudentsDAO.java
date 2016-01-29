@@ -7,5 +7,5 @@ import entity.ListStudents;
  */
 public interface ListStudentsDAO extends BaseDAO<ListStudents>{
 
-    boolean delete(ListStudents listStudents);
+    boolean delete(ListStudents listStudents) throws DAOException;
 }

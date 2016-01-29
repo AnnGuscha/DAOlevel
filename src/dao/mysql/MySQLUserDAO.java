@@ -1,5 +1,6 @@
 package dao.mysql;
 
+import dao.DAOException;
 import dao.UserDAO;
 import entity.User;
 import manager.ConnectionPool;
@@ -50,7 +51,7 @@ public class MySQLUserDAO extends BaseDAOImpl<User> implements UserDAO {
 
 
     @Override
-    public User find(String login, String pwd) {
+    public User find(String login, String pwd) throws DAOException {
         User entity = null;
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -67,12 +68,13 @@ public class MySQLUserDAO extends BaseDAOImpl<User> implements UserDAO {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }
 
     @Override
-    public User find(String login) {
+    public User find(String login) throws DAOException {
         User entity = null;
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -89,6 +91,7 @@ public class MySQLUserDAO extends BaseDAOImpl<User> implements UserDAO {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }

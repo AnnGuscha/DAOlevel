@@ -4,6 +4,7 @@ package dao.mysql;
  * Created by Anna on 12/1/2015.
  */
 
+import dao.DAOException;
 import dao.ListStudentsDAO;
 import entity.ListStudents;
 import manager.ConnectionPool;
@@ -46,7 +47,7 @@ public class MySQLListStudentsDAO extends BaseDAOImpl<ListStudents> implements L
         return new ListStudents(rs.getInt("idListStudents"), rs.getInt("idCourse"), rs.getInt("idStudent"));
     }
 
-    public boolean delete(ListStudents listStudents) {
+    public boolean delete(ListStudents listStudents) throws DAOException {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = getQueryDelete();
@@ -58,6 +59,7 @@ public class MySQLListStudentsDAO extends BaseDAOImpl<ListStudents> implements L
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not delete record ", e);
         }
         return false;
     }

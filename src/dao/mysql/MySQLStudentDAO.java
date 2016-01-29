@@ -1,5 +1,6 @@
 package dao.mysql;
 
+import dao.DAOException;
 import dao.StudentDAO;
 import entity.Student;
 import manager.ConnectionPool;
@@ -53,8 +54,8 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
     }
 
     @Override
-    public List<Student> find(String name) {
-        List<Student> entites = new ArrayList<Student>();
+    public List<Student> find(String name) throws DAOException {
+        List<Student> entities = new ArrayList<Student>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".findByName");
@@ -62,18 +63,19 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
             statement.setString(1, name);
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                entites.add(getT(rs));
+                entities.add(getT(rs));
             }
             log.info("Find record in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
-        return entites;
+        return entities;
     }
 
     @Override
-    public Student findByUserId(int userId) {
+    public Student findByUserId(int userId) throws DAOException {
         Student entity = null;
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -89,6 +91,7 @@ public class MySQLStudentDAO extends BaseDAOImpl<Student> implements StudentDAO 
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }

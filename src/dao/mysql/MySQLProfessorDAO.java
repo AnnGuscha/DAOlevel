@@ -4,6 +4,7 @@ package dao.mysql;
  * Created by Anna on 12/1/2015.
  */
 
+import dao.DAOException;
 import dao.ProfessorDAO;
 import entity.Professor;
 import manager.ConnectionPool;
@@ -52,7 +53,7 @@ public class MySQLProfessorDAO extends BaseDAOImpl<Professor> implements Profess
     }
 
     @Override
-    public Professor findByUserId(int userId) {
+    public Professor findByUserId(int userId) throws DAOException {
         Professor entity = null;
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -68,6 +69,7 @@ public class MySQLProfessorDAO extends BaseDAOImpl<Professor> implements Profess
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }

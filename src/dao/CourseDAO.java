@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface CourseDAO extends BaseDAO<Course>{
 
-    List<CourseExtend> getCourseExtentdList();
+    List<CourseExtend> getCourseExtentdList() throws DAOException;
 
-    Course getCourseByProfessor(int idProfessor);
+    Course getCourseByProfessor(int idProfessor) throws DAOException;
 }

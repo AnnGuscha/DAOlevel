@@ -5,6 +5,7 @@ package dao.mysql;
  */
 
 import dao.BaseDAO;
+import dao.DAOException;
 import entity.IdEntity;
 import manager.ConnectionPool;
 import manager.ManagerMySqlQueries;
@@ -33,29 +34,27 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
     abstract T getT(ResultSet rs) throws SQLException;
 
     @Override
-    public int insert(T entity) {
+    public int insert(T entity) throws DAOException {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".insert");
             PreparedStatement statement = connection.prepareStatement(query);
             statement = fillStatementParamsForInsert(entity, statement);
-            try {
-                statement.execute();
-                log.info("Insert record in database.");
-                return 1;
-            } catch (SQLException e1) {
-                log.error("Error: ", e1);
-                e1.printStackTrace();
-            }
+
+            statement.execute();
+            log.info("Insert record in database.");
+            return 1;
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not insert record ", e);
+        } finally {
+            return 0;
         }
-        return 0;
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(int id) throws DAOException {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".delete");
@@ -67,12 +66,14 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not delete record ", e);
+        } finally {
+            return false;
         }
-        return false;
     }
 
     @Override
-    public T find(int id) {
+    public T find(int id) throws DAOException {
         T entity = null;
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
@@ -82,18 +83,19 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 entity = getT(rs);
-                log.info("Find record in database.");
+                log.info("Find record in database with id = " + id);
             } else
-                log.info("Not find record in database.");
+                log.info("Not find record in database with id = " + id);
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
         return entity;
     }
 
     @Override
-    public boolean update(T entity) {
+    public boolean update(T entity) throws DAOException {
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".update");
@@ -104,31 +106,33 @@ public abstract class BaseDAOImpl<T extends IdEntity> implements BaseDAO<T> {
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not update record ", e);
         }
         return false;
     }
 
     @Override
-    public List<T> getAll() {
+    public List<T> getAll() throws DAOException {
         String query = ManagerMySqlQueries.getInstance().getObject(getTypeParam() + ".select");
-        List<T> entites = getList(query);
-        return entites;
+        List<T> entities = getList(query);
+        return entities;
     }
 
-    protected List<T> getList(String query) {
-        List<T> entites = new ArrayList<T>();
+    protected List<T> getList(String query) throws DAOException {
+        List<T> entities = new ArrayList<T>();
         try {
             Connection connection = ConnectionPool.getConnectionPool().retrieve();
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()) {
-                entites.add(getT(rs));
+                entities.add(getT(rs));
             }
-            log.info("Find " + entites.size() + " records in database.");
+            log.info("Find " + entities.size() + " records in database.");
         } catch (SQLException e) {
             log.error("Error: ", e);
             e.printStackTrace();
+            throw new DAOException("Can not find record ", e);
         }
-        return entites;
+        return entities;
     }
 }

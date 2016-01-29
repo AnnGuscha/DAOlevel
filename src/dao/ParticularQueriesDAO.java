@@ -11,13 +11,13 @@ import java.util.List;
  */
 public interface ParticularQueriesDAO {
 
-    List<CourseExtend> getCoursesForStudent(int idStudent);
+    List<CourseExtend> getCoursesForStudent(int idStudent) throws DAOException;
 
-    List<CourseExtend> getCourses(int idStudent);
+    List<CourseExtend> getCourses(int idStudent) throws DAOException;
 
-    List<StudentExtend> getStudentsByCourse(int idCourse);
+    List<StudentExtend> getStudentsByCourse(int idCourse) throws DAOException;
 
-    List<StudentExtend> getStudentsByProfessor(int idProfessor);
+    List<StudentExtend> getStudentsByProfessor(int idProfessor) throws DAOException;
 
-    MarkExtend find(int idCourse, int idStudent);
+    MarkExtend find(int idCourse, int idStudent) throws DAOException;
 }

@@ -9,9 +9,13 @@ import java.util.List;
  */
 public interface BaseDAO<T extends IdEntity> {
 
-    int insert(T entity);
-    boolean delete(int id);
-    T find(int id);
-    boolean update(T entity);
-    List<T> getAll();
+    int insert(T entity) throws DAOException;
+
+    boolean delete(int id) throws DAOException;
+
+    T find(int id) throws DAOException;
+
+    boolean update(T entity) throws DAOException;
+
+    List<T> getAll() throws DAOException;
 }
