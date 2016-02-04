@@ -10,7 +10,7 @@ public class ManagerMySqlQueries {
     private static ResourceBundle rb;
 
     private ManagerMySqlQueries() {
-        rb = ResourceBundle.getBundle("properties.mySqlConf");
+        rb = ResourceBundle.getBundle("properties.mySqlQueries");
     }
 
     public static ManagerMySqlQueries getInstance() {

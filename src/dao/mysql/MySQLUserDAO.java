@@ -27,6 +27,7 @@ public class MySQLUserDAO extends BaseDAOImpl<User> implements UserDAO {
         statement.setString(1, entity.getLogin());
         statement.setString(2, entity.getPassword());
         statement.setInt(3, entity.getRole());
+        statement.setString(4, entity.getLocale());
         return statement;
     }
 
@@ -35,7 +36,8 @@ public class MySQLUserDAO extends BaseDAOImpl<User> implements UserDAO {
         statement.setString(1, entity.getLogin());
         statement.setString(2, entity.getPassword());
         statement.setInt(3, entity.getRole());
-        statement.setInt(4, entity.getId());
+        statement.setString(4, entity.getLocale());
+        statement.setInt(5, entity.getId());
         return statement;
     }
 
@@ -46,7 +48,7 @@ public class MySQLUserDAO extends BaseDAOImpl<User> implements UserDAO {
 
     @Override
     User getT(ResultSet rs) throws SQLException {
-        return new User(rs.getInt("Id"), rs.getString("Login"), rs.getString("Password"), rs.getInt("Role"));
+        return new User(rs.getInt("Id"), rs.getString("Login"), rs.getString("Password"), rs.getInt("Role"), rs.getString("Locale"));
     }
 
 
