@@ -12,9 +12,13 @@ public class Student extends IdEntity implements java.io.Serializable {
 
     public Student() {
         super();
+        this.name = "";
+        this.surName = "";
+        this.patronymicName = "";
     }
 
     public Student(String name, String surName, String patronymicName, int userId) {
+        this();
         this.name = name;
         this.surName = surName;
         this.patronymicName = patronymicName;
